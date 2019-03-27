@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<konstmuseum>
+
+	<guide personnummer="199102038227" namn="baby doe" email="baby.doe@example.com" telefonnummmer="0704382281">
+		<språk namn="Franska"/>
+		<språk namn="Spanska"/>
+		<språk namn="Engelska"/>
+		<språk namn="Kinesiska"/>
+		<språk namn="Svenska"/>
+		<språk namn="Tyska"/>
+	</guide>
+	
+		
+	<guide personnummer="199402258337" namn="john doe" email="john.doe@example.com" telefonnummmer="0702332432">
+		<språk namn="Spanska"/>
+		<språk namn="Samiska"/>
+		<språk namn="Franska"/>
+		<språk namn="Svenska"/>
+	</guide>
+	
+	<guide personnummer="199503277441" namn="jane doe" email="jane.doe@example.com" telefonnummmer="0703423432">
+		<språk namn="Franska"/>
+		<språk namn="Spanska"/>
+		<språk namn="Kinesiska"/>
+	</guide>
+	
+	<konstutställning titel="Kubism" startdatum="2018-12-24" slutdatum="2018-12-26" ytbehov="400">
+		<kompetentguide personnummer="199102038227"/>
+		<kompetentguide personnummer="199402258337"/>
+		<kompetentguide personnummer="199503277441"/>
+		
+		
+	</konstutställning>
+	
+	<konstutställning titel="Expressionism" startdatum="2018-12-25" slutdatum="2018-12-29" ytbehov="800">
+		<kompetentguide personnummer="199102038227"/>
+		<kompetentguide personnummer="199402258337"/>
+		<kompetentguide personnummer="199503277441"/>
+	</konstutställning>
+	
+	<konstutställning titel="Renässans" startdatum="2018-12-30" slutdatum="2018-12-31" ytbehov="1500">
+		<kompetentguide personnummer="199102038227"/>
+		<kompetentguide personnummer="199402258337"/>
+	
+	</konstutställning>
+	
+	<konstutställning titel="Renässans" startdatum="2018-12-30" slutdatum="2019-01-20" ytbehov="3500">
+		<kompetentguide personnummer="199102038227"/>
+		<kompetentguide personnummer="199402258337"/>
+		<kompetentguide personnummer="199503277441"/>
+	</konstutställning>
+	
+	
+</konstmuseum>

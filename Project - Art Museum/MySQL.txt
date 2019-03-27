@@ -1,0 +1,194 @@
+-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+--
+-- Host: localhost    Database: konstmuseum
+-- ------------------------------------------------------
+-- Server version	8.0.13
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `guidat turtillfälle`
+--
+
+DROP TABLE IF EXISTS `guidat turtillfälle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `guidat turtillfälle` (
+  `tid` time NOT NULL,
+  `datum` date NOT NULL,
+  `guide` bigint(20) NOT NULL,
+  `språk` varchar(50) NOT NULL,
+  `konstutställning` int(11) NOT NULL,
+  PRIMARY KEY (`tid`,`datum`,`guide`),
+  KEY `språk_idx` (`språk`),
+  KEY `guide_idx` (`guide`),
+  KEY `fk_konstutställning_gt_idx` (`konstutställning`),
+  CONSTRAINT `fk_guide_gt` FOREIGN KEY (`guide`) REFERENCES `guide` (`personnummer`),
+  CONSTRAINT `fk_konstutställning_gt` FOREIGN KEY (`konstutställning`) REFERENCES `konstutställning` (`utställningsid`),
+  CONSTRAINT `fk_språk_gt` FOREIGN KEY (`språk`) REFERENCES `språk` (`namn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guidat turtillfälle`
+--
+
+LOCK TABLES `guidat turtillfälle` WRITE;
+/*!40000 ALTER TABLE `guidat turtillfälle` DISABLE KEYS */;
+INSERT INTO `guidat turtillfälle` VALUES ('09:00:00','2018-12-25',199102038227,'Kinesiska',2),('09:00:00','2019-01-19',199102038227,'Tyska',5),('10:00:00','2018-12-30',199402258337,'Franska',4),('10:30:00','2018-12-25',199402258337,'Spanska',3),('11:00:00','2018-12-26',199402258337,'Samiska',2),('11:30:00','2019-01-02',199102038227,'Kinesiska',5),('11:30:00','2019-01-02',199402258337,'Svenska',5),('12:30:00','2018-12-30',199503277441,'Franska',5),('13:30:00','2019-01-19',199402258337,'Svenska',5),('14:30:00','2018-12-26',199503277441,'Svenska',3),('15:00:00','2019-01-02',199102038227,'Samiska',5),('16:00:00','2018-12-26',199102038227,'Tyska',3),('17:00:00','2018-12-31',199102038227,'Spanska',4);
+/*!40000 ALTER TABLE `guidat turtillfälle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `guide`
+--
+
+DROP TABLE IF EXISTS `guide`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `guide` (
+  `personnummer` bigint(20) NOT NULL,
+  `telefonnummer` int(11) NOT NULL,
+  `e-mail` varchar(50) DEFAULT NULL,
+  `förnamn` varchar(50) NOT NULL,
+  `efternamn` varchar(50) NOT NULL,
+  PRIMARY KEY (`personnummer`),
+  UNIQUE KEY `personnummer_UNIQUE` (`personnummer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guide`
+--
+
+LOCK TABLES `guide` WRITE;
+/*!40000 ALTER TABLE `guide` DISABLE KEYS */;
+INSERT INTO `guide` VALUES (199102038227,704382281,'baby.doe@example.com','baby','doe'),(199402258337,702332432,'john.doe@example.com','john','doe'),(199503277441,703423432,'jane.doe@example.com','jane','doe');
+/*!40000 ALTER TABLE `guide` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `konstutställning`
+--
+
+DROP TABLE IF EXISTS `konstutställning`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `konstutställning` (
+  `utställningsID` int(11) NOT NULL AUTO_INCREMENT,
+  `titel` varchar(50) NOT NULL,
+  `startdatum` date NOT NULL,
+  `slutdatum` date NOT NULL,
+  `ytbehov` int(11) NOT NULL,
+  PRIMARY KEY (`utställningsID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `konstutställning`
+--
+
+LOCK TABLES `konstutställning` WRITE;
+/*!40000 ALTER TABLE `konstutställning` DISABLE KEYS */;
+INSERT INTO `konstutställning` VALUES (2,'Kubism','2018-12-24','2018-12-26',400),(3,'Expressionism','2018-12-25','2018-12-29',800),(4,'Renässans','2018-12-30','2018-12-31',1500),(5,'Renässans','2018-12-30','2019-01-20',3500);
+/*!40000 ALTER TABLE `konstutställning` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `språk`
+--
+
+DROP TABLE IF EXISTS `språk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `språk` (
+  `namn` varchar(50) NOT NULL,
+  PRIMARY KEY (`namn`),
+  UNIQUE KEY `namn_UNIQUE` (`namn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `språk`
+--
+
+LOCK TABLES `språk` WRITE;
+/*!40000 ALTER TABLE `språk` DISABLE KEYS */;
+INSERT INTO `språk` VALUES ('Engelska'),('Franska'),('Kinesiska'),('Samiska'),('Spanska'),('Svenska'),('Tyska');
+/*!40000 ALTER TABLE `språk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `språkkunskap`
+--
+
+DROP TABLE IF EXISTS `språkkunskap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `språkkunskap` (
+  `guide` bigint(20) NOT NULL,
+  `språk` varchar(50) NOT NULL,
+  PRIMARY KEY (`guide`,`språk`),
+  KEY `guide_idx` (`guide`),
+  KEY `språk_idx` (`språk`),
+  CONSTRAINT `fk_guide_sk` FOREIGN KEY (`guide`) REFERENCES `guide` (`personnummer`),
+  CONSTRAINT `fk_språk_sk` FOREIGN KEY (`språk`) REFERENCES `språk` (`namn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `språkkunskap`
+--
+
+LOCK TABLES `språkkunskap` WRITE;
+/*!40000 ALTER TABLE `språkkunskap` DISABLE KEYS */;
+INSERT INTO `språkkunskap` VALUES (199102038227,'Engelska'),(199102038227,'Franska'),(199102038227,'Kinesiska'),(199102038227,'Spanska'),(199102038227,'Svenska'),(199102038227,'Tyska'),(199402258337,'Franska'),(199402258337,'Samiska'),(199402258337,'Spanska'),(199402258337,'Svenska'),(199503277441,'Franska'),(199503277441,'Kinesiska'),(199503277441,'Spanska'),(199503277441,'Svenska');
+/*!40000 ALTER TABLE `språkkunskap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `utställningskompetens`
+--
+
+DROP TABLE IF EXISTS `utställningskompetens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `utställningskompetens` (
+  `guide` bigint(20) NOT NULL,
+  `konstutställning` int(11) NOT NULL,
+  PRIMARY KEY (`konstutställning`,`guide`),
+  KEY `guide_idx` (`guide`),
+  CONSTRAINT `fk_guide_uk` FOREIGN KEY (`guide`) REFERENCES `guide` (`personnummer`),
+  CONSTRAINT `fk_konstutställning_uk` FOREIGN KEY (`konstutställning`) REFERENCES `konstutställning` (`utställningsid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utställningskompetens`
+--
+
+LOCK TABLES `utställningskompetens` WRITE;
+/*!40000 ALTER TABLE `utställningskompetens` DISABLE KEYS */;
+INSERT INTO `utställningskompetens` VALUES (199102038227,2),(199102038227,3),(199102038227,4),(199102038227,5),(199402258337,2),(199402258337,3),(199402258337,4),(199402258337,5),(199503277441,2),(199503277441,3),(199503277441,5);
+/*!40000 ALTER TABLE `utställningskompetens` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-12-24  1:19:32
